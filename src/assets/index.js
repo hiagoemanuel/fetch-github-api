@@ -25,3 +25,6 @@ async function getUserData(userName) {
         screen.renderNotFound()
     }
 }
+
+console.log(await getUser('a'))
+console.log(await getRepositories('A'))
