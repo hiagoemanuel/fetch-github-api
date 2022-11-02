@@ -11,14 +11,39 @@ const screen = {
             </div>
         </div>`
 
-        let repositoriesItens = ''
-        user.repositories.forEach(repo => repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
+        // Repositories
 
+        let repositoriesItens = ''
+
+        user.repositories.forEach(repo => repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
         if (user.repositories.length > 0) {
             this.userProfile.innerHTML +=
             `<div class="repositories section">
                 <h2>Reposítórios</h2>
                 <ul>${repositoriesItens}</ul>
+            </div>`
+        }
+
+        // Events
+
+        let eventsItens = ''
+
+        user.events.forEach((event) =>{
+            const pushEvent = event.payload.commits
+            const createEvent = event.payload.description
+
+            if (pushEvent) {
+                eventsItens += `<li><h3>Push: ${event.repo.name}</h3><span>${event.payload.commits[0].message ?? '...'}</span></li>`
+            } else if (createEvent) {
+                eventsItens += `<li><h3>Create: ${event.repo.name}</h3><span>${event.payload.description ?? '...'}</span></li>`
+            }
+        })
+
+        if (user.events.length > 0) {
+            this.userProfile.innerHTML +=
+            `<div class="events">
+                <h2>Eventos</h2>
+                <ul>${eventsItens}</ul>
             </div>`
         }
     },
