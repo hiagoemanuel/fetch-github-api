@@ -23,9 +23,7 @@ async function getUserData(userName) {
         user.setRepositories(respositoriesResponse)
         user.setEvents(eventsResponse)
 
-        console.log(user);
-        
-        screen.renderUser(user)
+        screen.renderUserData(user)
     } catch {
         screen.renderNotFound()
     }

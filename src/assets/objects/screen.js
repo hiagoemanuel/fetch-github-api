@@ -1,6 +1,8 @@
 const screen = {
     userProfile: document.querySelector('.profile-data'),
-    renderUser(user) {
+    renderUserData(user) {
+        // User
+
         this.userProfile.innerHTML =
             `<div class="info">
             <img src="${user.avatarURL}" alt="avatar user"/>
@@ -15,7 +17,19 @@ const screen = {
 
         let repositoriesItens = ''
 
-        user.repositories.forEach(repo => repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
+        user.repositories.forEach(repo => repositoriesItens +=
+            `<li>
+                <a href="${repo.html_url}" target="_blank">
+                    <p>${repo.name}</p>
+                    <ul class="repo-info">
+                        <li>🍴 ${repo.forks}</li>
+                        <li>⭐ ${repo.stargazers_count}</li>
+                        <li>👀 ${repo.watchers}</li>
+                        <li>👨‍💻 ${repo.language ?? 'N/A'}</li>
+                    </ul>
+                </a>
+            </li>`)
+
         if (user.repositories.length > 0) {
             this.userProfile.innerHTML +=
             `<div class="repositories section">
